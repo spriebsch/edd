@@ -49,6 +49,8 @@ class PageFactory extends AbstractFactory
         switch ($type) {
             case 'ProfilePage':
                 return new ProfilePage();
-        }    
+            default:
+                throw new Exception('Invalid instance type given');
+        }
     }
 }

@@ -33,7 +33,7 @@ The code is available under BSD license.
 Disclaimer
 ----------
 
-This code is example code and not to be considered production quality. 
+This code is example code and not to be considered production quality.
 
 Contact and Feedback
 --------------------

@@ -42,7 +42,7 @@ class User
     public function getSignupDate()
     {
         $dates = array('07-01-2011', '23-05-2010', '22-08-2009', '15-11-2008');
-    
+
         return new \DateTime($dates[rand(0, count($dates) -1)]);
     }
 }

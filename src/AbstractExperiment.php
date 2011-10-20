@@ -58,7 +58,7 @@ abstract class AbstractExperiment implements ExperimentInterface
     {
         return $this->name;
     }
-    
+
     public function isRunning()
     {
         return $this->runExperiment;
@@ -68,18 +68,18 @@ abstract class AbstractExperiment implements ExperimentInterface
     {
         $this->decide();
         $this->isStarted = TRUE;
-    }    
+    }
 
     public function run(MasterFactoryInterface $factory)
     {
         if (!$this->isStarted) {
             $this->start();
         }
-    
+
         if ($this->runExperiment) {
             $factory->register($this);
         }
     }
 
-    abstract protected function decide();    
+    abstract protected function decide();
 }
