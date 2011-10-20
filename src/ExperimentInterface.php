@@ -37,27 +37,13 @@
 
 namespace spriebsch\edd;
 
-class Session
-{
-    protected $experiments = array();
+use spriebsch\factory\MasterFactoryInterface;
 
-    public function getId()
-    {
-        return md5(uniqid());
-    }
-    
-    public function registerExperiment(ExperimentInterface $experiment)
-    {
-        $this->experiments[$experiment->getName()] = $experiment;
-    }
-    
-    public function hasExperiment($name)
-    {
-        return array_key_exists($name, $this->experiments);
-    }
-    
-    public function getExperiment($name)
-    {
-        return $this->experiments[$name];
-    }
+interface ExperimentInterface
+{
+    public function getName();
+    public function isRunning();
+    public function start();
+    public function run(MasterFactoryInterface $factory);
+    public function end(Logger $logger);
 }

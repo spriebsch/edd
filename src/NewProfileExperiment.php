@@ -40,53 +40,7 @@ namespace spriebsch\edd;
 use spriebsch\factory\MasterFactoryInterface;
 use spriebsch\factory\ChildFactoryInterface;
 
-abstract class Experiment
-{
-    protected $name;
-    protected $sessionId;
-    protected $environment;
-    protected $isStarted;
-    protected $runExperiment = FALSE;
-    protected $masterFactory;
-
-    public function __construct($sessionId, Environment $environment)
-    {
-        $this->sessionId = $sessionId;
-        $this->environment = $environment;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-    
-    public function isRunning()
-    {
-        return $this->runExperiment;
-    }
-
-    public function start()
-    {
-        $this->decide();
-        $this->isStarted = TRUE;
-    }    
-
-    public function run(ApplicationFactory $factory)
-    {
-        if (!$this->isStarted) {
-            $this->start();
-        }
-    
-        if ($this->runExperiment) {
-            $factory->register($this);
-        }
-    }
-
-    abstract protected function end(Logger $logger);
-    abstract protected function decide();    
-}
-
-class NewProfileExperiment extends Experiment implements ChildFactoryInterface
+class NewProfileExperiment extends AbstractExperiment implements ChildFactoryInterface
 {
     protected $name = 'NewProfile';
 

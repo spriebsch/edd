@@ -4,9 +4,11 @@ spl_autoload_register(
       static $classes = null;
       if ($classes === null) {
          $classes = array(
+            'spriebsch\\edd\\abstractexperiment' => '/AbstractExperiment.php',
             'spriebsch\\edd\\applicationfactory' => '/ApplicationFactory.php',
             'spriebsch\\edd\\environment' => '/Environment.php',
             'spriebsch\\edd\\exception' => '/Exception.php',
+            'spriebsch\\edd\\experimentinterface' => '/ExperimentInterface.php',
             'spriebsch\\edd\\logger' => '/Logger.php',
             'spriebsch\\edd\\newprofileexperiment' => '/NewProfileExperiment.php',
             'spriebsch\\edd\\newprofilepage' => '/NewProfilePage.php',

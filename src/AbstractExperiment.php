@@ -37,27 +37,49 @@
 
 namespace spriebsch\edd;
 
-class Session
-{
-    protected $experiments = array();
+use spriebsch\factory\MasterFactoryInterface;
 
-    public function getId()
+abstract class AbstractExperiment implements ExperimentInterface
+{
+    protected $name;
+    protected $sessionId;
+    protected $environment;
+    protected $isStarted;
+    protected $runExperiment = FALSE;
+    protected $masterFactory;
+
+    public function __construct($sessionId, Environment $environment)
     {
-        return md5(uniqid());
+        $this->sessionId = $sessionId;
+        $this->environment = $environment;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
     
-    public function registerExperiment(ExperimentInterface $experiment)
+    public function isRunning()
     {
-        $this->experiments[$experiment->getName()] = $experiment;
+        return $this->runExperiment;
     }
+
+    public function start()
+    {
+        $this->decide();
+        $this->isStarted = TRUE;
+    }    
+
+    public function run(MasterFactoryInterface $factory)
+    {
+        if (!$this->isStarted) {
+            $this->start();
+        }
     
-    public function hasExperiment($name)
-    {
-        return array_key_exists($name, $this->experiments);
+        if ($this->runExperiment) {
+            $factory->register($this);
+        }
     }
-    
-    public function getExperiment($name)
-    {
-        return $this->experiments[$name];
-    }
+
+    abstract protected function decide();    
 }
