@@ -39,7 +39,7 @@ namespace spriebsch\edd;
 
 class Environment
 {
-    protected $langauge;
+    protected $language;
     protected $user;
 
     public function __construct($language, User $user)
