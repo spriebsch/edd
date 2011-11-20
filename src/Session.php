@@ -45,17 +45,17 @@ class Session
     {
         return md5(uniqid());
     }
-    
+
     public function registerExperiment(ExperimentInterface $experiment)
     {
         $this->experiments[$experiment->getName()] = $experiment;
     }
-    
+
     public function hasExperiment($name)
     {
         return array_key_exists($name, $this->experiments);
     }
-    
+
     public function getExperiment($name)
     {
         return $this->experiments[$name];

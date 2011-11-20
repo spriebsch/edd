@@ -69,7 +69,7 @@ if ($experiment->isRunning()) {
     // Randomly choose a rating between 0 and 5
     $ratings = array(0, 1, 2, 3, 4, 5);
     $rating = $ratings[rand(0, count($ratings) - 1)];
-    
+
     $experiment->setRating($rating);
 }
 

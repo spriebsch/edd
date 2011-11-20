@@ -47,12 +47,12 @@ class Environment
         $this->language = $language;
         $this->user = $user;
     }
-    
+
     public function getLanguage()
     {
         return $this->language;
     }
-    
+
     public function getUser()
     {
         return $this->user;

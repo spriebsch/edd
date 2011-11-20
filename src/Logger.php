@@ -42,7 +42,7 @@ class Logger
     public function log($message, $rating = NULL)
     {
         print PHP_EOL . $message . PHP_EOL;
-        
+
         if ($rating !== NULL) {
             file_put_contents(__DIR__ . '/../logfile', $rating . PHP_EOL, FILE_APPEND);
         }

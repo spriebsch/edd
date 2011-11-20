@@ -45,21 +45,23 @@ class NewProfileExperiment extends AbstractExperiment implements ChildFactoryInt
     protected $name = 'NewProfile';
 
     protected $language;
-    protected $userSignUpDate;
+    protected $userSignupDate;
 
     protected $languageIsGerman;
     protected $signedUpMoreThanOneYearAgo;
 
     protected $rating;
-    
+
     public function getInstanceFor($type)
     {
         switch ($type) {
             case 'ProfilePage':
                 return new NewProfilePage();
-        }    
+            default:
+                throw new Exception('Invalid instance type given');
+        }
     }
-    
+
     public function getTypes()
     {
         return array('ProfilePage');
@@ -69,12 +71,12 @@ class NewProfileExperiment extends AbstractExperiment implements ChildFactoryInt
     {
         $this->masterFactory = $factory;
     }
-    
+
     public function setRating($rating)
     {
         $this->rating = $rating;
     }
-    
+
     public function end(Logger $logger)
     {
         $message =  $this->name . ' Experiment for session ' . $this->sessionId . PHP_EOL . PHP_EOL;
@@ -91,9 +93,9 @@ class NewProfileExperiment extends AbstractExperiment implements ChildFactoryInt
             $message .= 'User Signup: ' . $this->userSignupDate->format('Y-m-d') . ' -> ';
             $message .= ($this->signedUpMoreThanOneYearAgo ? 'qualifies' : 'does not qualify') . PHP_EOL;
         }
-    
+
         $message .= PHP_EOL;
-    
+
         if ($this->runExperiment) {
             $message .= '-> showing new profile page' . PHP_EOL . PHP_EOL;
 
@@ -101,21 +103,21 @@ class NewProfileExperiment extends AbstractExperiment implements ChildFactoryInt
         } else {
             $message .= '-> showing old profile page' . PHP_EOL;
         }
-    
+
         $logger->log($message, $this->rating);
     }
 
     protected function decide()
     {
         $this->language = $this->environment->getLanguage();
-    
+
         $this->languageIsGerman = $this->language == 'DE';
 
         $now = new \DateTime('now');
         $this->userSignupDate = $this->environment->getUser()->getSignupDate();
 
         $this->signedUpMoreThanOneYearAgo = $now->diff($this->userSignupDate)->y > 1;
-        
+
         $this->runExperiment = $this->languageIsGerman && $this->signedUpMoreThanOneYearAgo;
     }
 }
